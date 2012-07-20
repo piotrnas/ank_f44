@@ -53,6 +53,7 @@ ArrayAdapter listAdapter = new ArrayAdapter<String>(this,R.layout.simplerow, pla
 //listAdapter.add( "Makemake" );
 //listAdapter.add( "Eris" );
 
+// a to lista 
 // Set the ArrayAdapter as the ListView's adapter.
 //mainListView.setAdapter( listAdapter );      
  
