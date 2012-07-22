@@ -1,5 +1,10 @@
 package com.forum44.ankieter;
 
-public class danetelefonu {
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.TextView;
 
+public class danetelefonu {
+	
 }

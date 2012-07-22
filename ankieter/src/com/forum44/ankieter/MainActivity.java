@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
 
 	public int a = 0;
 	public int sekund = 1000 * 1; // co jaki przedzia³ czasu
-
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,13 +129,14 @@ public class MainActivity extends Activity {
 	}
 
 	public void staninternetu(View V) {
+		Context context = getApplicationContext();
 		int a;
 		lokalizacja sesja = new lokalizacja();
 		
 		
-		a = sesja.polaczenia(getApplicationContext());
-		TextView t = (TextView) findViewById(R.id.internet);
-		t.setText("" + a);
+	//	a = sesja.polaczenie(context);
+	//	TextView t = (TextView) findViewById(R.id.internet);
+	//	t.setText("" + a);
 
 	}
 

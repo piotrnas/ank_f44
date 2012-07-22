@@ -26,8 +26,10 @@ public class lokalizacja extends MainActivity  {
 	    private LocationManager locationManager;
 	    Location location; 
 	
-	
-	    public int polaczenia(Context context) {
+	    //zwraca 2 dla polaczenia WIFII
+		//zwraca 1 dla polaczenia GSM
+		//zwraca 0 dla braku internetu
+	    public int polaczenie(Context context) {
 			ConnectivityManager connManager = null;
 			String networkService = Context.CONNECTIVITY_SERVICE;
 			int wynik=0;
@@ -51,12 +53,13 @@ public class lokalizacja extends MainActivity  {
 				wynik = 1;
 				
 			}
+			
 			if (connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected())
 			{
 				wynik = 2;
 				
 			}
-				
+			
 			
 			if (connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
 					.isConnected()
