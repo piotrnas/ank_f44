@@ -1,5 +1,8 @@
 package com.forum44.ankieter;
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -17,18 +20,31 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.telephony.TelephonyManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import com.forum44.ankieter.parametry;
 
 public class MainActivity extends Activity {
 
 	public int a = 0;
-	public int sekund = 1000 * 1; // co jaki przedzia³ czasu
+	public String f;
+	public int sekund = 1000 * 1 * 60; // co jaki przedzia³ czasu
+	private LocationManager locationManager;
 	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,9 +77,50 @@ public class MainActivity extends Activity {
 		// a to lista
 		// Set the ArrayAdapter as the ListView's adapter.
 		// mainListView.setAdapter( listAdapter );
-
+		 
 	}
 
+	@Override
+	protected void onStart() {
+	    super.onStart();
+	    
+	    
+	    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+	    locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 
+                3000, 
+                0, 
+                locationListener); 
+
+	}
+	 
+	@Override
+	protected void onStop() {
+		 locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+	    locationManager.removeUpdates(locationListener);
+	    super.onStop();
+	}
+	
+	
+	
+	private LocationListener locationListener = new LocationListener() {
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+ 
+        public void onProviderEnabled(String provider) {}
+ 
+        public void onProviderDisabled(String provider) {}
+ 
+        public void onLocationChanged(Location location) {
+           
+            //showAdditionalInfo(location);
+           /* if (savedLocation == null)
+                savedLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);*/
+        }
+    };
+	
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -101,12 +158,65 @@ public class MainActivity extends Activity {
 		this.runOnUiThread(doSomething);
 	}
 
+	// uruchompowtarzany watek
 	private Runnable doSomething = new Runnable() {
 		public void run() {
+
 			TextView t = (TextView) findViewById(R.id.cyfry);
+
 			t.setText("" + a);
 			a++;
+
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost("http://twojebiuro.pl/test.php");
+
+			new Thread(new Runnable() {
+
+				public void run() {
+
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost(
+							"http://twojebiuro.pl/test.php");
+					TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
+					TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
+					try {
+						String z = "";
+						
+						StringBuilder X,Y;
+						String x1,y1;
+						X=zwrocX();
+						Y=zwrocY();
+						x1=X.toString();
+						y1=Y.toString();
+					 
+						
+
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+								4);
+						nameValuePairs.add(new BasicNameValuePair("id", z));
+						nameValuePairs
+								.add(new BasicNameValuePair("message", f));
+						
+						
+						
+						nameValuePairs.add(new BasicNameValuePair("dlug",x1));
+						nameValuePairs.add(new BasicNameValuePair("szer",y1));
+						
+						
+						httppost.setEntity(new UrlEncodedFormEntity(
+								nameValuePairs));
+						httpclient.execute(httppost);
+
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+					}
+				}
+			}).start();
+
 		}
+
 	};
 
 	public void pokaz(View v) {
@@ -128,24 +238,97 @@ public class MainActivity extends Activity {
 
 	}
 
-	public void staninternetu(View V) {
-		Context context = getApplicationContext();
-		int a;
-		lokalizacja sesja = new lokalizacja();
+	// pozycje z GPS i WIFII
+	public void podajpozycje(View v) {
+
+		getLocationManager();
+
+		showLocation();
+
+	}
+
+	// pokaz pozycje;
+	private void showLocation() {
+		StringBuilder latitudeStr = new StringBuilder("Latitude:\n");
+		StringBuilder longitudeStr = new StringBuilder("Longitude:\n");
+		for (String providerStr : locationManager.getAllProviders()) {
+			Location location = locationManager
+					.getLastKnownLocation(providerStr);
+			if (location != null) {
+				latitudeStr.append(location.getLatitude());
+				longitudeStr.append(location.getLongitude());
+			} else {
+				latitudeStr.append("null");
+				longitudeStr.append("null");
+			}
+			latitudeStr.append(" from: " + providerStr + "\n");
+			longitudeStr.append(" from: " + providerStr + "\n");
+		}
+
+		StringBuilder X,Y;
+		X=zwrocX();
+		Y=zwrocY();
+		
+		TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
+		TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
+
+		szerokosc.setText(X);
+		dlugosc.setText(Y);
+		
+	}
+
+	private StringBuilder zwrocX() {
+		
+		StringBuilder latitudeStr = new StringBuilder("\n");
+		Location location = locationManager.getLastKnownLocation("network");
+		if (location != null) {
+			
+			
+			latitudeStr.append(location.getLatitude());
+			
 		
 		
-	//	a = sesja.polaczenie(context);
-	//	TextView t = (TextView) findViewById(R.id.internet);
-	//	t.setText("" + a);
+		}
+		
+		return latitudeStr;
+
+	}
+
+	private StringBuilder zwrocY() {
+		StringBuilder dlugosc = new StringBuilder("\n");
+		Location location = locationManager.getLastKnownLocation("network");
+		if (location != null) {
+			
+			dlugosc.append(location.getLongitude());
+				
+		
+		}
+		
+		return dlugosc;
 
 	}
 
 	
 	
-	//zwraca 2 dla polaczenia WIFII
-	//zwraca 1 dla polaczenia GSM
-	//zwraca 0 dla braku internetu
 	
+	private void getLocationManager() {
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	}
+
+	public void staninternetu(View V) {
+		Context context = getApplicationContext();
+		int a;
+		lokalizacja sesja = new lokalizacja();
+
+		// a = sesja.polaczenie(context);
+		// TextView t = (TextView) findViewById(R.id.internet);
+		// t.setText("" + a);
+
+	}
+
+	// zwraca 2 dla polaczenia WIFII
+	// zwraca 1 dla polaczenia GSM
+	// zwraca 0 dla braku internetu
 
 	/*
 	 * public Arrays podaj_dane_telefonu(View v) {
