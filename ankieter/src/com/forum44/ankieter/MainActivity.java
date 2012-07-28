@@ -187,7 +187,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void nastepny(View v) {
-		setContentView(R.layout.drugieokno);
+		//setContentView(R.layout.drugieokno);
 	}
 
 	private void timerMethod() {

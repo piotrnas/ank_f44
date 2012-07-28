@@ -3,81 +3,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/dlugosc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/cyfry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/internet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="23dp"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/internet"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="40dp"
-        android:onClick="staninternetu"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/szerokosc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/internet"
-        android:layout_marginTop="30dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/tekst1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dlugosc"
-        android:padding="@dimen/padding_medium"
-        android:text="Licznik sekund: "
-        tools:context=".MainActivity" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tekst1"
-        android:ellipsize="middle"
-        android:onClick="sprawdz"
-        android:text="Wystartuj licznik" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button2"
-        android:onClick="podajpozycje"
-        android:text="Podaj pozycje GPS" />
-
-    <TextView
-        android:id="@+id/fix"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/szerokosc"
-        android:layout_marginTop="21dp"
-        android:text="TextView" />
     
-    
+ 
+   
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+   		 android:layout_width="fill_parent"
+      android:orientation="vertical"
+      android:layout_height="fill_parent"   
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="70dp"
+         >
+
+        <TextView
+            android:id="@+id/cyfry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/cyfry"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.55"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/internet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="23dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/internet"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="40dp"
+            android:onClick="staninternetu"
+            android:text="Button" />
+
+        <TextView
+            android:id="@+id/fix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:onClick="sprawdz"
+            android:text="Wystartuj licznik" />
+
+        <TextView
+            android:id="@+id/tekst1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium"
+            android:text="Licznik sekund: "
+            tools:context=".MainActivity" />
+
+        <TextView
+            android:id="@+id/dlugosc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/szerokosc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/internet"
+            android:layout_marginTop="30dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:onClick="podajpozycje"
+            android:text="Podaj pozycje GPS" />
+    </LinearLayout>
+
 </RelativeLayout>
