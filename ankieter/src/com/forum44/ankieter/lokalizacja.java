@@ -1,5 +1,17 @@
 package com.forum44.ankieter;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,65 +29,93 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class lokalizacja extends MainActivity  {
+public class lokalizacja   {
 
-	 LocationManager myManager;
-	   
-	    private Location savedLocation = null;
-	    
-	    private LocationManager locationManager;
-	    Location location; 
+
 	
-	    //zwraca 2 dla polaczenia WIFII
-		//zwraca 1 dla polaczenia GSM
-		//zwraca 0 dla braku internetu
-	    public int polaczenie(Context context) {
-			ConnectivityManager connManager = null;
-			String networkService = Context.CONNECTIVITY_SERVICE;
-			int wynik=0;
+  public void zapisz_pozycje(LocationManager locationManager) {	
+	 
+	  HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(
+				"http://twojebiuro.pl/zwroc_pozycje.php");
 
-			/*String provider = Settings.Secure.getString(getContentResolver(),
-					Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-
-			if (!provider.contains("gps")) { // if gps is disabled
-				final Intent poke = new Intent();
-				poke.setClassName("com.android.settings",
-						"com.android.settings.widget.SettingsAppWidgetProvider");
-				poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-				poke.setData(Uri.parse("3"));
-				sendBroadcast(poke);
-			}*/
-
-			connManager = (ConnectivityManager) getSystemService(networkService);
-
-			if (connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected())
-			{
-				wynik = 1;
-				
-			}
+		try {
+			String z = "";
 			
-			if (connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected())
-			{
-				wynik = 2;
-				
-			}
+			StringBuilder X,Y;
+			String x1,y1;
+			X=zwrocX(locationManager);
+			Y=zwrocY(locationManager);
+			x1=X.toString();
+			y1=Y.toString();
+		 
 			
-			
-			if (connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-					.isConnected()
-					|| connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-							.isConnected()) {
 
-				
-
-			} else {
-				wynik = 0;
-			}
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+					4);
+			nameValuePairs.add(new BasicNameValuePair("id", z));
+			nameValuePairs.add(new BasicNameValuePair("message", "imei"));
 			
 			
 			
-			return wynik;
+			nameValuePairs.add(new BasicNameValuePair("dlug",x1));
+			nameValuePairs.add(new BasicNameValuePair("szer",y1));
+			
+			
+			httppost.setEntity(new UrlEncodedFormEntity(
+					nameValuePairs));
+		
+			
+			httpclient.execute(httppost);
 
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 		}
+	 
 	
+  }
+	
+	private StringBuilder zwrocX(LocationManager locationManager) {
+		
+		StringBuilder latitudeStr = new StringBuilder("\n");
+		Location location = locationManager.getLastKnownLocation("gps");
+		if (location != null) {
+			
+			
+			latitudeStr.append(location.getLatitude());
+			
+		
+		
+		}
+		
+		return latitudeStr;
+
+	}
+
+	private StringBuilder zwrocY(LocationManager locationManager) {
+		StringBuilder dlugosc = new StringBuilder("\n");
+		Location location = locationManager.getLastKnownLocation("gps");
+		if (location != null) {
+			
+			dlugosc.append(location.getLongitude());
+				
+		
+		}
+		
+		return dlugosc;
+
+	}
+
+	
+	
+	
+	/*private void getLocationManager() {
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	}*/
+  
+  
+  
+	 
 }

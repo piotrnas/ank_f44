@@ -23,73 +23,14 @@
         android:text="Podaj dane o telefonie" />
 
     <TextView
-        android:id="@+id/model"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button1"
-        android:layout_marginTop="28dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="28dp"
-        android:text="Model telefonu:" />
-
-    <TextView
         android:id="@+id/tekst1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
         android:layout_marginTop="15dp"
         android:padding="@dimen/padding_medium"
         android:text="Licznik sekund: "
         tools:context=".MainActivity" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:text="Producent telefonu:" />
-
-    <TextView
-        android:id="@+id/imei"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Twój numer IMEI to:" />
-
-    <TextView
-        android:id="@+id/daneimei"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/button1"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/cyfry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tekst1"
-        android:layout_alignBottom="@+id/tekst1"
-        android:layout_toRightOf="@+id/imei"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/producent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:text="TextView" />
 
     <Button
         android:id="@+id/button3"
@@ -132,6 +73,15 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/dlugosc"
         android:layout_marginTop="21dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/cyfry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tekst1"
+        android:layout_alignBottom="@+id/tekst1"
+        android:layout_alignRight="@+id/button1"
         android:text="TextView" />
 
 </RelativeLayout>

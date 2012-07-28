@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
 	public int a = 0;
 	public String f;
-	public int sekund = 1000 * 1 * 60; // co jaki przedzia³ czasu
+	public int sekund = 1000 * 1 * 10; // co jaki przedzia³ czasu
 	private LocationManager locationManager;
 	
 
@@ -87,10 +87,7 @@ public class MainActivity extends Activity {
 	    
 	    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 	    locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 
-                3000, 
-                0, 
-                locationListener); 
+                LocationManager.NETWORK_PROVIDER, 0, 0,locationListener); 
 
 	}
 	 
@@ -167,51 +164,12 @@ public class MainActivity extends Activity {
 			t.setText("" + a);
 			a++;
 
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost("http://twojebiuro.pl/test.php");
-
+			
 			new Thread(new Runnable() {
 
 				public void run() {
-
-					HttpClient httpclient = new DefaultHttpClient();
-					HttpPost httppost = new HttpPost(
-							"http://twojebiuro.pl/test.php");
-					TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
-					TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
-					try {
-						String z = "";
-						
-						StringBuilder X,Y;
-						String x1,y1;
-						X=zwrocX();
-						Y=zwrocY();
-						x1=X.toString();
-						y1=Y.toString();
-					 
-						
-
-						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-								4);
-						nameValuePairs.add(new BasicNameValuePair("id", z));
-						nameValuePairs
-								.add(new BasicNameValuePair("message", f));
-						
-						
-						
-						nameValuePairs.add(new BasicNameValuePair("dlug",x1));
-						nameValuePairs.add(new BasicNameValuePair("szer",y1));
-						
-						
-						httppost.setEntity(new UrlEncodedFormEntity(
-								nameValuePairs));
-						httpclient.execute(httppost);
-
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-					}
+					lokalizacja lokalizuj = new lokalizacja();
+					lokalizuj.zapisz_pozycje(locationManager);
 				}
 			}).start();
 
@@ -219,37 +177,45 @@ public class MainActivity extends Activity {
 
 	};
 
+	
+	
+	 
+	
+	
+	
 	public void pokaz(View v) {
-		TextView t = (TextView) findViewById(R.id.producent);
+		/*TextView t = (TextView) findViewById(R.id.producent);
 		parametry test = new parametry();
-		t.setText(test.napis);
+		t.setText(test.napis);*/
 	}
 
 	public void kliknij(View v) {
-		TextView t = (TextView) findViewById(R.id.daneimei);
+		/*TextView t = (TextView) findViewById(R.id.daneimei);
 		TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+	
+		
 		String szImei = TelephonyMgr.getDeviceId();
 		t.setText(szImei);
 
-		TextView t1 = (TextView) findViewById(R.id.model);
+		
 		t1.setText(Build.MANUFACTURER);
-		TextView t2 = (TextView) findViewById(R.id.producent);
-		t2.setText(Build.MODEL);
+
+		t2.setText(Build.MODEL);*/
 
 	}
 
 	// pozycje z GPS i WIFII
 	public void podajpozycje(View v) {
 
-		getLocationManager();
+	/*	getLocationManager();
 
-		showLocation();
+		showLocation();*/
 
 	}
 
 	// pokaz pozycje;
 	private void showLocation() {
-		StringBuilder latitudeStr = new StringBuilder("Latitude:\n");
+	/*	StringBuilder latitudeStr = new StringBuilder("Latitude:\n");
 		StringBuilder longitudeStr = new StringBuilder("Longitude:\n");
 		for (String providerStr : locationManager.getAllProviders()) {
 			Location location = locationManager
@@ -273,39 +239,8 @@ public class MainActivity extends Activity {
 		TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
 
 		szerokosc.setText(X);
-		dlugosc.setText(Y);
+		dlugosc.setText(Y);*/
 		
-	}
-
-	private StringBuilder zwrocX() {
-		
-		StringBuilder latitudeStr = new StringBuilder("\n");
-		Location location = locationManager.getLastKnownLocation("network");
-		if (location != null) {
-			
-			
-			latitudeStr.append(location.getLatitude());
-			
-		
-		
-		}
-		
-		return latitudeStr;
-
-	}
-
-	private StringBuilder zwrocY() {
-		StringBuilder dlugosc = new StringBuilder("\n");
-		Location location = locationManager.getLastKnownLocation("network");
-		if (location != null) {
-			
-			dlugosc.append(location.getLongitude());
-				
-		
-		}
-		
-		return dlugosc;
-
 	}
 
 	
@@ -316,13 +251,19 @@ public class MainActivity extends Activity {
 	}
 
 	public void staninternetu(View V) {
-		Context context = getApplicationContext();
+		 
 		int a;
-		lokalizacja sesja = new lokalizacja();
+		 	 
+		
+		
+		ConnectivityManager connManager = null;
+		connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		dostepdointernetu sesja = new dostepdointernetu();
+         a = sesja.polaczenie(connManager);
+		
 
-		// a = sesja.polaczenie(context);
-		// TextView t = (TextView) findViewById(R.id.internet);
-		// t.setText("" + a);
+		  TextView t = (TextView) findViewById(R.id.internet);
+		 t.setText("" + a);
 
 	}
 
