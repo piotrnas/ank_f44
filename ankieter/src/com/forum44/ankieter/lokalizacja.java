@@ -37,7 +37,7 @@ public class lokalizacja   {
 	 
 	  HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(
-				"http://twojebiuro.pl/zwroc_pozycje.php");
+				"http://twojebiuro.pl/zapisz_pozycje.php");
 
 		try {
 			String z = "";
@@ -54,7 +54,7 @@ public class lokalizacja   {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
 					4);
 			nameValuePairs.add(new BasicNameValuePair("id", z));
-			nameValuePairs.add(new BasicNameValuePair("message", "imei"));
+			nameValuePairs.add(new BasicNameValuePair("imei", "imei"));
 			
 			
 			
@@ -77,7 +77,7 @@ public class lokalizacja   {
 	
   }
 	
-	private StringBuilder zwrocX(LocationManager locationManager) {
+	public StringBuilder zwrocX(LocationManager locationManager) {
 		
 		StringBuilder latitudeStr = new StringBuilder("\n");
 		Location location = locationManager.getLastKnownLocation("gps");
@@ -94,7 +94,7 @@ public class lokalizacja   {
 
 	}
 
-	private StringBuilder zwrocY(LocationManager locationManager) {
+	public StringBuilder zwrocY(LocationManager locationManager) {
 		StringBuilder dlugosc = new StringBuilder("\n");
 		Location location = locationManager.getLastKnownLocation("gps");
 		if (location != null) {

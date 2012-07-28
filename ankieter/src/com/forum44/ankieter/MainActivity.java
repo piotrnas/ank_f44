@@ -14,13 +14,17 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.telephony.TelephonyManager;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,8 +90,7 @@ public class MainActivity extends Activity {
 	    
 	    
 	    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
-	    locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 0, 0,locationListener); 
+	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0,locationListener); 
 
 	}
 	 
@@ -109,6 +112,18 @@ public class MainActivity extends Activity {
  
         public void onLocationChanged(Location location) {
            
+        	
+        	StringBuilder X,Y;
+    		lokalizacja lokalizuj = new lokalizacja();
+    		
+    		X=lokalizuj.zwrocX(locationManager);
+    		Y=lokalizuj.zwrocY(locationManager);
+    		
+    		TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
+    		TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
+
+    		szerokosc.setText(X);
+    		dlugosc.setText(Y); 
             //showAdditionalInfo(location);
            /* if (savedLocation == null)
                 savedLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);*/
@@ -118,22 +133,46 @@ public class MainActivity extends Activity {
 	
 	
 	
-	@Override
+/*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
-	}
+	}*/
+	
+
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.icon:     Toast.makeText(this, "You pressed the icon!", Toast.LENGTH_LONG).show();
+                                break;
+            case R.id.text:     Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG).show();
+                                break;
+            case R.id.icontext: Toast.makeText(this, "You pressed the icon and text!", Toast.LENGTH_LONG).show();
+                                break;
+        }
+        return true;
+    }
+
+	
 
 	public void sprawdz(View v) {
 
 		Button b = (Button) findViewById(R.id.button2);
 		b.setEnabled(false);
 
-		Timer zegarek;
+		Timer watek_glowny;
 
-		zegarek = new Timer();
+		watek_glowny = new Timer();
 
-		zegarek.schedule(new TimerTask() {
+		watek_glowny.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				timerMethod();
@@ -177,7 +216,7 @@ public class MainActivity extends Activity {
 
 	};
 
-	
+ 
 	
 	 
 	
@@ -190,65 +229,55 @@ public class MainActivity extends Activity {
 	}
 
 	public void kliknij(View v) {
-		/*TextView t = (TextView) findViewById(R.id.daneimei);
+		/*
+	
 		TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 	
 		
 		String szImei = TelephonyMgr.getDeviceId();
-		t.setText(szImei);
-
-		
 		t1.setText(Build.MANUFACTURER);
-
-		t2.setText(Build.MODEL);*/
+		t2.setText(Build.MODEL);
+		*/
 
 	}
 
 	// pozycje z GPS i WIFII
 	public void podajpozycje(View v) {
-
-	/*	getLocationManager();
-
-		showLocation();*/
-
+		String a="Ostatni fix: ";
+		Location fix;
+		
+		fix = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+	 showLocation(); 
+	 
+	 a  += new Date(fix.getTime()).toGMTString() + "\n";
+	 TextView t = (TextView) findViewById(R.id.fix);
+		 
+		t.setText(a); 
+	 
 	}
 
 	// pokaz pozycje;
 	private void showLocation() {
-	/*	StringBuilder latitudeStr = new StringBuilder("Latitude:\n");
-		StringBuilder longitudeStr = new StringBuilder("Longitude:\n");
-		for (String providerStr : locationManager.getAllProviders()) {
-			Location location = locationManager
-					.getLastKnownLocation(providerStr);
-			if (location != null) {
-				latitudeStr.append(location.getLatitude());
-				longitudeStr.append(location.getLongitude());
-			} else {
-				latitudeStr.append("null");
-				longitudeStr.append("null");
-			}
-			latitudeStr.append(" from: " + providerStr + "\n");
-			longitudeStr.append(" from: " + providerStr + "\n");
-		}
+
 
 		StringBuilder X,Y;
-		X=zwrocX();
-		Y=zwrocY();
+		lokalizacja lokalizuj = new lokalizacja();
+		
+		X=lokalizuj.zwrocX(locationManager);
+		Y=lokalizuj.zwrocY(locationManager);
 		
 		TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
 		TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
 
 		szerokosc.setText(X);
-		dlugosc.setText(Y);*/
+		dlugosc.setText(Y); 
 		
 	}
 
 	
 	
 	
-	private void getLocationManager() {
-		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	}
+ 
 
 	public void staninternetu(View V) {
 		 
