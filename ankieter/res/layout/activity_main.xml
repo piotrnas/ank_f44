@@ -3,189 +3,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    
- 
-   
     <LinearLayout
         android:id="@+id/linearLayout1"
-   		 android:layout_width="fill_parent"
-      android:orientation="vertical"
-      android:layout_height="fill_parent"   
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="70dp"
-         >
-
-        <TextView
-            android:id="@+id/cyfry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/cyfry"
-            android:layout_width="282dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.55"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/internet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="23dp"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/internet"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="40dp"
-            android:text="Button" />
-
-        <TextView
-            android:id="@+id/fix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="middle"
-            android:onClick="sprawdz"
-            android:text="Wystartuj licznik" />
-
-        <TextView
-            android:id="@+id/tekst1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Licznik sekund: "
-            tools:context=".MainActivity" />
-
-        <TextView
-            android:id="@+id/dlugosc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/szerokosc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/internet"
-            android:layout_marginTop="30dp"
-            android:text="TextView" /><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" ><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    
- 
-   
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-   		 android:layout_width="fill_parent"
-      android:orientation="vertical"
-      android:layout_height="fill_parent"   
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="70dp"
-         >
-
-        <TextView
-            android:id="@+id/cyfry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/cyfry"
-            android:layout_width="282dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.55"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/internet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="23dp"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/internet"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="40dp"
-            android:text="Button" />
-
-        <TextView
-            android:id="@+id/fix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="middle"
-            android:onClick="sprawdz"
-            android:text="Wystartuj licznik" />
-
-        <TextView
-            android:id="@+id/tekst1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Licznik sekund: "
-            tools:context=".MainActivity" />
-
-        <TextView
-            android:id="@+id/dlugosc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/szerokosc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/internet"
-            android:layout_marginTop="30dp"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Podaj pozycje GPS" />
-    </LinearLayout>
-
-</RelativeLayout>@android:drawable/ic_menu_add@android:drawable/ic_menu_add@android:drawable/ic_menu_delete
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Podaj pozycje GPS" />
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/lvExample"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" >
-    </ListView>
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/button3"
+        android:text="POKAŻ ANKIETY" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_alignRight="@+id/button4"
+        android:layout_below="@+id/button2"
+        android:text="WYPEŁNIJ ANKIETĘ" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true"
+        android:text="USTAWIENIA PROGRAMU" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_alignRight="@+id/button4"
+        android:layout_below="@+id/button4"
+        android:text="ZAKOŃCZ PROGRAM" />
+
+</RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="ANKIETY DO WYPEŁNIENIA" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="MENU GŁÓWNE"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout> 

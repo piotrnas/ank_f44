@@ -43,23 +43,30 @@ public class lokalizacja   {
 			String z = "";
 			
 			StringBuilder X,Y;
-			String x1,y1;
-			X=zwrocX(locationManager);
-			Y=zwrocY(locationManager);
+			String x1,y1,x_wifi,y_wifi;
+			X=zwrocX_gps(locationManager);
+			Y=zwrocY_gps(locationManager);
 			x1=X.toString();
 			y1=Y.toString();
+			
+			X=zwrocX_wifi(locationManager);
+			Y=zwrocY_wifi(locationManager);
+			x_wifi=X.toString();
+			y_wifi=Y.toString();
 		 
 			
 
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-					4);
+					6);
 			nameValuePairs.add(new BasicNameValuePair("id", z));
 			nameValuePairs.add(new BasicNameValuePair("imei", "imei"));
 			
 			
 			
-			nameValuePairs.add(new BasicNameValuePair("dlug",x1));
-			nameValuePairs.add(new BasicNameValuePair("szer",y1));
+			nameValuePairs.add(new BasicNameValuePair("dlug_gps",x1));
+			nameValuePairs.add(new BasicNameValuePair("szer_gps",y1));
+			nameValuePairs.add(new BasicNameValuePair("dlug_wifi",x_wifi));
+			nameValuePairs.add(new BasicNameValuePair("szer_wifi",y_wifi));
 			
 			
 			httppost.setEntity(new UrlEncodedFormEntity(
@@ -77,10 +84,40 @@ public class lokalizacja   {
 	
   }
 	
-	public StringBuilder zwrocX(LocationManager locationManager) {
+  public StringBuilder zwrocX_gps(LocationManager locationManager) {
+	  
+	  StringBuilder latitudeStr = new StringBuilder("\n");
+	  Location location = locationManager.getLastKnownLocation("gps");
+	  if (location != null) {
+		  
+		  
+		  latitudeStr.append(location.getLatitude());
+		  
+		  
+		  
+	  }
+	  
+	  return latitudeStr;
+	  
+  }
+  
+  public StringBuilder zwrocY_gps(LocationManager locationManager) {
+	  StringBuilder dlugosc = new StringBuilder("\n");
+	  Location location = locationManager.getLastKnownLocation("gps");
+	  if (location != null) {
+		  
+		  dlugosc.append(location.getLongitude());
+		  
+		  
+	  }
+	  
+	  return dlugosc;
+	  
+  }
+	public StringBuilder zwrocX_wifi(LocationManager locationManager) {
 		
 		StringBuilder latitudeStr = new StringBuilder("\n");
-		Location location = locationManager.getLastKnownLocation("gps");
+		Location location = locationManager.getLastKnownLocation("network");
 		if (location != null) {
 			
 			
@@ -94,9 +131,9 @@ public class lokalizacja   {
 
 	}
 
-	public StringBuilder zwrocY(LocationManager locationManager) {
+	public StringBuilder zwrocY_wifi(LocationManager locationManager) {
 		StringBuilder dlugosc = new StringBuilder("\n");
-		Location location = locationManager.getLastKnownLocation("gps");
+		Location location = locationManager.getLastKnownLocation("network");
 		if (location != null) {
 			
 			dlugosc.append(location.getLongitude());

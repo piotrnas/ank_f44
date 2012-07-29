@@ -55,15 +55,14 @@ public class MainActivity extends Activity {
 	
 	
 	private ListView lvExample;
-    private String[] exampleStrings = {"Element1", "Element2", "El..3"};
+    private String[] exampleStrings = {"Wype³nij ankietê", "Poka¿ ankietê", "Ustawienia","Najbli¿sza ankieta","Koniec programu"};
     private ArrayAdapter<String> aa;
     
-    /** Called when the activity is first created. */
-   
+
       
 
 
-    @Override
+   /* @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
         
@@ -84,59 +83,57 @@ public class MainActivity extends Activity {
             break;
         }
         return true;
-    }
+    }*/
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.list_view_context_menu, menu);
-        
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-        
-        menu.setHeaderTitle(exampleStrings[info.position]);
-        
-    }
+    @Override  
+    public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+ super.onCreateContextMenu(menu, v, menuInfo);  
+     menu.setHeaderTitle("Wybierz ankietê:");  
+     menu.add(0, v.getId(), 0, "Action 1");  
+     menu.add(0, v.getId(), 0, "Action 2");  
+ }  
 	
 	
 	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
+	//menu dolne obsluga 
 	 @Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
-	            case R.id.icon:     Toast.makeText(this, "You pressed the icon!", Toast.LENGTH_LONG).show();
+	            case R.id.icon:     Toast.makeText(this, "Wybra³eœ 1!", Toast.LENGTH_LONG).show();
 	                                break;
-	            case R.id.text:     Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG).show();
+	            case R.id.text:     Toast.makeText(this, "Wybra³es 2!", Toast.LENGTH_LONG).show();
 	                                break;
-	            case R.id.icontext: Toast.makeText(this, "You pressed the icon and text!", Toast.LENGTH_LONG).show();
+	            case R.id.icontext: Toast.makeText(this, "Wybra³es 3!", Toast.LENGTH_LONG).show();
 	                                break;
 	        }
 	        return true;
 	    }
 	
-	
+	public void wlaczmenu (View v) {
+		
+		 
+
+	}
+	 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.okno_ankiety);
 		
-		  lvExample = (ListView)findViewById(R.id.lvExample);
+		
+
+		
+		/*
+		    lvExample = (ListView)findViewById(R.id.lvExample);
 	        aa = new ArrayAdapter<String>(getApplicationContext(), 
 	                                      android.R.layout.simple_list_item_1, 
 	                                      exampleStrings);
 	        lvExample.setAdapter(aa);
 	        
-	        registerForContextMenu(lvExample);
+	        */
+ 
+/*	    Button btn = (Button) findViewById(R.id.button3);  
+	    registerForContextMenu(btn);  */
 		
 
 		// ListView mainListView = (ListView) findViewById( R.id.mainListView );
@@ -183,6 +180,19 @@ public class MainActivity extends Activity {
 	    
 	    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0,locationListener); 
+	    
+	    
+		Timer watek_glowny;
+
+		watek_glowny = new Timer();
+
+		watek_glowny.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				timerMethod();
+			}
+
+		}, 0, sekund);
 
 	}
 	 
@@ -208,14 +218,14 @@ public class MainActivity extends Activity {
         	StringBuilder X,Y;
     		lokalizacja lokalizuj = new lokalizacja();
     		
-    		X=lokalizuj.zwrocX(locationManager);
-    		Y=lokalizuj.zwrocY(locationManager);
+    		X=lokalizuj.zwrocX_gps(locationManager);
+    		Y=lokalizuj.zwrocY_gps(locationManager);
     		
-    		TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
-    		TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
+    	//	TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
+    	//	TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
 
-    		szerokosc.setText(X);
-    		dlugosc.setText(Y); 
+    	//	szerokosc.setText(X);
+    	//	dlugosc.setText(Y); 
             //showAdditionalInfo(location);
            /* if (savedLocation == null)
                 savedLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);*/
@@ -228,7 +238,7 @@ public class MainActivity extends Activity {
  
 	
 
-	public void sprawdz(View v) {
+	public void sprawdz(View V ) {
 
 	/*	Button b = (Button) findViewById(R.id.button2);
 		b.setEnabled(false);*/
@@ -263,10 +273,10 @@ public class MainActivity extends Activity {
 	private Runnable doSomething = new Runnable() {
 		public void run() {
 
-			TextView t = (TextView) findViewById(R.id.cyfry);
+			 TextView t = (TextView) findViewById(R.id.czas);
 
-			t.setText("" + a);
-			a++;
+			 t.setText("" + a);
+		 	a++;
 
 			
 			new Thread(new Runnable() {
@@ -312,12 +322,11 @@ public class MainActivity extends Activity {
 		Location fix;
 		
 		fix = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-	 showLocation(); 
+		showLocation(); 
 	 
 	 a  += new Date(fix.getTime()).toGMTString() + "\n";
-	 TextView t = (TextView) findViewById(R.id.fix);
-		 
-		t.setText(a); 
+	// TextView t = (TextView) findViewById(R.id.fix);
+	//t.setText(a); 
 		
 	    
 	     
@@ -331,14 +340,14 @@ public class MainActivity extends Activity {
 		StringBuilder X,Y;
 		lokalizacja lokalizuj = new lokalizacja();
 		
-		X=lokalizuj.zwrocX(locationManager);
-		Y=lokalizuj.zwrocY(locationManager);
+		X=lokalizuj.zwrocX_gps(locationManager);
+		Y=lokalizuj.zwrocY_gps(locationManager);
 		
-		TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
-		TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
+	//	TextView dlugosc = (TextView) findViewById(R.id.dlugosc);
+	//	TextView szerokosc = (TextView) findViewById(R.id.szerokosc);
 
-		szerokosc.setText(X);
-		dlugosc.setText(Y); 
+	//	szerokosc.setText(X);
+	//	dlugosc.setText(Y); 
 		
 	}
 
@@ -350,18 +359,16 @@ public class MainActivity extends Activity {
 	public void staninternetu(View V) {
 		 
 		int a;
-		 	 
-		
-		
+	
 		ConnectivityManager connManager = null;
 		connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		dostepdointernetu sesja = new dostepdointernetu();
-         a = sesja.polaczenie(connManager);
+        a = sesja.polaczenie(connManager);
 		
 
-		  TextView t = (TextView) findViewById(R.id.internet);
-		 t.setText("" + a);
-
+	//TextView t = (TextView) findViewById(R.id.internet);
+	//.setText("" + a);
+ 
 	}
 
 	// zwraca 2 dla polaczenia WIFII
