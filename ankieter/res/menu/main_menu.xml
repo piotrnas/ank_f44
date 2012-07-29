@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/icon"
+	    android:title="Dodaj" android:icon="@android:drawable/ic_menu_add" android:checked="true"/>
+	<item android:id="@+id/text"
+	    android:title="Text" />
+    <item android:id="@+id/icontext"
+        android:title="Kasuj"
+        android:icon="@android:drawable/ic_menu_delete" android:checkable="true"/>
+</menu>

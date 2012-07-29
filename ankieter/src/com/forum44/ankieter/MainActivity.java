@@ -13,12 +13,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.telephony.TelephonyManager;
@@ -48,11 +52,92 @@ public class MainActivity extends Activity {
 	public int sekund = 1000 * 1 * 10; // co jaki przedzia³ czasu
 	private LocationManager locationManager;
 	
+	
+	
+	private ListView lvExample;
+    private String[] exampleStrings = {"Element1", "Element2", "El..3"};
+    private ArrayAdapter<String> aa;
+    
+    /** Called when the activity is first created. */
+   
+      
 
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+        
+        switch (item.getItemId()) {
+        case R.id.item01:
+            Toast.makeText(getApplicationContext(), 
+                    "Opcja item01 na elemencie: " + exampleStrings[info.position], 
+                    Toast.LENGTH_LONG).show();
+            break;
+            
+        case R.id.item02:
+            Toast.makeText(getApplicationContext(), 
+                    "Opcja item02 na elemencie: " + exampleStrings[info.position], 
+                    Toast.LENGTH_LONG).show();
+            break;
+            
+        default:
+            break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.list_view_context_menu, menu);
+        
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+        
+        menu.setHeaderTitle(exampleStrings[info.position]);
+        
+    }
+	
+	
+	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.icon:     Toast.makeText(this, "You pressed the icon!", Toast.LENGTH_LONG).show();
+	                                break;
+	            case R.id.text:     Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG).show();
+	                                break;
+	            case R.id.icontext: Toast.makeText(this, "You pressed the icon and text!", Toast.LENGTH_LONG).show();
+	                                break;
+	        }
+	        return true;
+	    }
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		  lvExample = (ListView)findViewById(R.id.lvExample);
+	        aa = new ArrayAdapter<String>(getApplicationContext(), 
+	                                      android.R.layout.simple_list_item_1, 
+	                                      exampleStrings);
+	        lvExample.setAdapter(aa);
+	        
+	        registerForContextMenu(lvExample);
+		
 
 		// ListView mainListView = (ListView) findViewById( R.id.mainListView );
 
@@ -84,6 +169,13 @@ public class MainActivity extends Activity {
 		 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_menu, menu);
+	    return true;
+	}
+	
 	@Override
 	protected void onStart() {
 	    super.onStart();
@@ -133,40 +225,13 @@ public class MainActivity extends Activity {
 	
 	
 	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}*/
-	
-
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.icon:     Toast.makeText(this, "You pressed the icon!", Toast.LENGTH_LONG).show();
-                                break;
-            case R.id.text:     Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG).show();
-                                break;
-            case R.id.icontext: Toast.makeText(this, "You pressed the icon and text!", Toast.LENGTH_LONG).show();
-                                break;
-        }
-        return true;
-    }
-
+ 
 	
 
 	public void sprawdz(View v) {
 
-		Button b = (Button) findViewById(R.id.button2);
-		b.setEnabled(false);
+	/*	Button b = (Button) findViewById(R.id.button2);
+		b.setEnabled(false);*/
 
 		Timer watek_glowny;
 
@@ -253,6 +318,9 @@ public class MainActivity extends Activity {
 	 TextView t = (TextView) findViewById(R.id.fix);
 		 
 		t.setText(a); 
+		
+	    
+	     
 	 
 	}
 

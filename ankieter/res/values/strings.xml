@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, SimpleOptionMenu!</string>
-    <string name="app_name">Simple Option Menu</string>
+   <string name="item02">Dodaj</string>
+    <string name="item01">Usuń</string>
+    <string name="hello">ContextMenu Example</string>
+    <string name="app_name">Ankieter</string>
 </resources>
+
+
+ 
