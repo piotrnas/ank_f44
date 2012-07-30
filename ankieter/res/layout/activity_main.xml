@@ -30,6 +30,7 @@
         android:layout_alignLeft="@+id/button4"
         android:layout_alignRight="@+id/button4"
         android:layout_below="@+id/button2"
+        android:onClick="wypelnij_ankiete"
         android:text="WYPEŁNIJ ANKIETĘ" />
 
     <Button

@@ -83,6 +83,78 @@ public class lokalizacja   {
 	 
 	
   }
+  
+  
+  
+  public void zapisz_pozycje_Ankiety(LocationManager locationManager) {	
+		 
+	  HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(
+				"http://twojebiuro.pl/zapisz_pozycje_ankieta.php");
+
+		try {
+			String z = "";
+			
+			StringBuilder X,Y;
+			String x1,y1,x_wifi,y_wifi;
+			X=zwrocX_gps(locationManager);
+			Y=zwrocY_gps(locationManager);
+			x1=X.toString();
+			y1=Y.toString();
+			
+			X=zwrocX_wifi(locationManager);
+			Y=zwrocY_wifi(locationManager);
+			x_wifi=X.toString();
+			y_wifi=Y.toString();
+		 
+			
+
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+					6);
+			nameValuePairs.add(new BasicNameValuePair("id", z));
+			nameValuePairs.add(new BasicNameValuePair("id_ankiety", "idankiety"));
+			nameValuePairs.add(new BasicNameValuePair("imei", "imei"));
+			
+			
+			
+			nameValuePairs.add(new BasicNameValuePair("dlug_gps",x1));
+			nameValuePairs.add(new BasicNameValuePair("szer_gps",y1));
+			nameValuePairs.add(new BasicNameValuePair("dlug_wifi",x_wifi));
+			nameValuePairs.add(new BasicNameValuePair("szer_wifi",y_wifi));
+			
+			
+			httppost.setEntity(new UrlEncodedFormEntity(
+					nameValuePairs));
+		
+			
+			httpclient.execute(httppost);
+
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+	 
+	
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 	
   public StringBuilder zwrocX_gps(LocationManager locationManager) {
 	  

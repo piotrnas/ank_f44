@@ -114,11 +114,25 @@ public class MainActivity extends Activity {
 		 
 
 	}
+	
+	
+
+	
+	public void wypelnij_ankiete(View V) {
+		
+		  Intent intent = new Intent(getApplicationContext(), Wypelnij_ankiete.class);
+
+	         startActivity(intent);
+		
+	
+		
+		
+	}
 	 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.okno_ankiety);
+		setContentView(R.layout.activity_main);
 		
 		
 
@@ -148,8 +162,7 @@ public class MainActivity extends Activity {
 		planetList.addAll(Arrays.asList(planets));
 
 		// Create ArrayAdapter using the planet list.
-		ArrayAdapter listAdapter = new ArrayAdapter<String>(this,
-				R.layout.simplerow, planetList);
+	//	ArrayAdapter listAdapter = new ArrayAdapter<String>(this,R.layout.simplerow, planetList);
 
 		// Add more planets. If you passed a String[] instead of a List<String>
 		// into the ArrayAdapter constructor, you must not add more items.
@@ -180,7 +193,7 @@ public class MainActivity extends Activity {
 	    
 	    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0,locationListener); 
-	    
+	    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 0,locationListener); 
 	    
 		Timer watek_glowny;
 
@@ -273,10 +286,10 @@ public class MainActivity extends Activity {
 	private Runnable doSomething = new Runnable() {
 		public void run() {
 
-			 TextView t = (TextView) findViewById(R.id.czas);
+			/* TextView t = (TextView) findViewById(R.id.czas);
 
 			 t.setText("" + a);
-		 	a++;
+		 	a++;*/
 
 			
 			new Thread(new Runnable() {

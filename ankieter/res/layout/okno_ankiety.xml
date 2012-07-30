@@ -103,11 +103,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="WYSLIJ" />
-
+
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="wroc_menu_glowne"
                 android:text="WROC" />
 
         </LinearLayout>
